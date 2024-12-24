@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Navidad ❄️💙</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playwrite+IE+Guides&display=swap" rel="stylesheet">    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #6f869c;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .card-container {
+            perspective: 1000px;
+        }
+
+        .card {
+            width: 300px;
+            height: 400px;
+            background: #ffffff;
+            border-radius: 10px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+
+        .card.open {
+            transform: rotateY(180deg);
+        }
+
+        .card .front, .card .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+        }
+
+        .card .front {
+            background: #395a7a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .tree {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: #accad4;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .tree .row {
+            width: 100%;
+        }
+
+        .tree .star {
+            color: yellow;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .tree .binary {
+            display: block;
+            width: 100%;
+        }
+
+        .snow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        @keyframes snow {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        .card .back {
+            background: #c5d4e2;
+            transform: rotateY(180deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tree-message {
+            text-align: center;
+            font-size: 1.2em;
+            color: #000000;
+            font-family: 'Dancing Script', serif;
+        }        
+
+        .input-area {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .input-area textarea {
+            resize: none;
+            border: 1px solid #ffe9e9;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 1em;
+            height: 100px;
+        }
+        @media (max-width: 300px) {
+            .card {
+                width: 90%; /* Más ancho en pantallas pequeñas */
+                height: 60vh;
+            }
+
+            .tree {
+                font-size: 10px; /* Reducir el tamaño del árbol */
+            }
+
+            .tree-message {
+                font-size: 1em; /* Ajustar el texto para pantallas pequeñas */
+            }
+        }      
+    </style>
+</head>
+<body>
+    <div class="snow" id="snow"></div>
+    <div class="card-container">
+        <div class="card" onclick="toggleCard(this)">
+            <div class="back">
+                <div class="tree-message">
+                    <p>¡Feliz Navidad y un prospero año nuevo!✨</p>
+                    <p>Como en el codigo, como en la vida, no siempre compila a la primera pero con esfuerzo
+                        todo puede ejecutarse con exito.. 🫶
+                    </p>
+                    <p> Recuerda que eres parte del si puedes pensarlo... puedes crearlo, te deseo lo mejor para este nuevo año,
+                        que tus sueños se vuelvan realidad, fue grato haberte conocido, compartido, donde me diste unos bellos recuerdos. ❄️💙
+                    </p>
+                    <p>Te volviste dueño de mis noches y desvelos.</p>
+                    <p>My snowman ⛄</p>
+                </div>
+            </div>            
+            <div class="front">
+                <div class="tree">
+                    <div class="star">★</div>
+                    <div class="row binary">101010</div>
+                    <div class="row binary">111001010</div>
+                    <div class="row binary">10110110101</div>
+                    <div class="row binary">111010101110101</div>
+                    <div class="row binary">1010101110101010101</div>
+                    <div class="row binary">10101011101010101010101</div>
+                    <div class="row binary">101010111010101010101010101</div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <script>
+        function toggleCard(card) {
+            card.classList.toggle('open');
+        }
+
+        function createSnowflakes() {
+            const snowContainer = document.getElementById('snow');
+            for (let i = 0; i < 100; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.style.width = `${Math.random() * 5 + 2}px`;
+                snowflake.style.height = snowflake.style.width;
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                snowflake.style.animation = `snow ${Math.random() * 5 + 3}s linear infinite`;
+                snowflake.style.animationDelay = `${Math.random() * 5}s`;
+                snowContainer.appendChild(snowflake);
+            }
+        }
+
+        createSnowflakes();
+    </script>
+</body>
+</html>
